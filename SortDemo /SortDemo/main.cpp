@@ -81,7 +81,6 @@ void selectSort(Sqlist *list){
         }
     }
 }
-
 //快排分组，从小到大
 int partitionIncreasing(Sqlist *list, int left, int right) {
     int storeIndex = left;
@@ -95,6 +94,7 @@ int partitionIncreasing(Sqlist *list, int left, int right) {
     swapValus(list,right,storeIndex);
     return storeIndex;
 }
+
 
 void quickSort(Sqlist *list, int left, int right) {
     if (left > right) return;
