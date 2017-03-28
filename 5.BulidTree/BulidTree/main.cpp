@@ -31,7 +31,6 @@ BinaryTreeNode* construCore(int *startPreorder, int *endPreorder, int *startInor
         }
     }
     
-    
     //在中序拿到头节点
     int *rootInorder = startInorder;
     while (rootInorder <= endPreorder && *rootInorder != rootValue) {
@@ -59,10 +58,80 @@ BinaryTreeNode* construct(int *preorder, int *inorder, int lenght) {
     return construCore(preorder, preorder + lenght - 1, inorder, inorder + lenght -1);
 }
 
+
+void preSort(BinaryTreeNode *root) {
+    printf("%d ",root->m_Value);
+    
+    if(root ->m_pLeft != NULL) {
+        preSort(root ->m_pLeft);
+    }
+ 
+    if (root ->m_right != NULL) {
+        preSort(root ->m_right);
+    }
+    
+    
+}
+
+void inSort(BinaryTreeNode *root) {
+    if(root ->m_pLeft != NULL) {
+        preSort(root ->m_pLeft);
+    }
+    printf("%d  ",root->m_Value);
+    if (root ->m_right != NULL) {
+        preSort(root ->m_right);
+    }
+}
+
+void afterSort(BinaryTreeNode *root) {
+    if(root ->m_pLeft != NULL) {
+        preSort(root ->m_pLeft);
+    }
+   
+    if (root ->m_right != NULL) {
+        preSort(root ->m_right);
+    }
+    
+    printf("%d ",root->m_Value);
+}
+
+//拿到树的镜像
+void exchange(BinaryTreeNode *root) {
+    if (root ->m_pLeft != NULL || root -> m_right != NULL) {
+        BinaryTreeNode *left = root -> m_pLeft;
+        root -> m_pLeft = root -> m_right;
+        root -> m_right = left;
+    }
+    
+    if (root -> m_pLeft) {
+        exchange(root -> m_pLeft);
+    }
+    
+    if (root -> m_right) {
+        exchange(root -> m_right);
+    }
+}
+
+
 int main()
 {
     int pre[8] = {1,2,4,7,3,5,6,8};
     int in[8]  = {4,7,2,1,5,3,8,6};
-   BinaryTreeNode *root =  construct(pre, in, 8);
+    BinaryTreeNode *root =  construct(pre, in, 8);
+    preSort(root);
+     printf("\n");
+    inSort(root);
+    printf("\n");
+    afterSort(root);
+    printf("\n");
+    
+//    exchange(root);
+//    
+//    preSort(root);
+//    printf("\n");
+//    inSort(root);
+//    printf("\n");
+//    afterSort(root);
+//    printf("\n");
     
 }
