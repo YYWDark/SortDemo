@@ -112,19 +112,52 @@ void exchange(BinaryTreeNode *root) {
     }
 }
 
+int GetNodeNum(BinaryTreeNode *node) {
+    if (node == NULL) return 0;
+    return GetNodeNum(node -> m_pLeft) + GetNodeNum(node -> m_right) + 1;
+}
 
+int nodeLevel(BinaryTreeNode *node) {
+    if (node == NULL) return  0;
+    int depthLeft = nodeLevel(node->m_pLeft);
+    int depthRight = nodeLevel(node->m_right);
+   
+//    nodeLevel(node -> m_pLeft)
+    return depthLeft > depthRight ? (depthLeft + 1) : (depthRight + 1);
+}
+
+int leafNodeNum(BinaryTreeNode *node) {
+    if (node == NULL) return 0;
+    if (node->m_pLeft == NULL && node->m_right == NULL) {
+        return 1;
+    }
+    int depthLeft = leafNodeNum(node->m_pLeft);
+    int depthRight = leafNodeNum(node->m_right);
+    return (depthLeft + depthRight);
+}
 int main()
 {
     int pre[8] = {1,2,4,7,3,5,6,8};
     int in[8]  = {4,7,2,1,5,3,8,6};
     BinaryTreeNode *root =  construct(pre, in, 8);
-    preSort(root);
-     printf("\n");
-    inSort(root);
-    printf("\n");
-    afterSort(root);
-    printf("\n");
     
+    
+    int nodeNumber = GetNodeNum(root);
+    printf("nodeNumber == %d \n",nodeNumber);
+    
+    int level = nodeLevel(root);
+    printf("level == %d \n",level);
+    
+    int leaf = leafNodeNum(root);
+     printf("leaf == %d \n",leaf);
+//    preSort(root);
+//     printf("\n");
+//    inSort(root);
+//    printf("\n");
+//    afterSort(root);
+//    printf("\n");
+    
+
 //    exchange(root);
 //    
 //    preSort(root);
